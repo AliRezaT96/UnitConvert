@@ -2,7 +2,7 @@ from preprocess.preprocess import cleaning
 from persiantools import digits
 
 Toman_words = ['تومان','تومن','ت','T']
-Rial_words = ['ریال','R']
+Rial_words = ['R','ریال']
 Numeric_words = {'هزار' : digits.en_to_fa('000') , 'میلیون' : digits.en_to_fa('000000')}
 
 def converter(text,currency):
@@ -39,14 +39,14 @@ def converter(text,currency):
     return out, tokens
 
 
-def RialToToman(number):
-    out = number + digits.en_to_fa('000')
+def TomanToRial(number):
+    out = number + digits.en_to_fa('0')
     return out
 
-def TomanToRial(number):
+def RialToToman(number):
     out = ''
-    if number[-3:] == digits.en_to_fa('000'):
-        out = out[:-3]
+    if number[-1] == digits.en_to_fa('0'):
+        out = out[:-2]
     else:
-        out = out[:-3] + ',' + out[-3:]
+        out = out[:-2] + ',' + out[-1]
     return out 
