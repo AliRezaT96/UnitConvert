@@ -1,4 +1,6 @@
-from model import converter
+from model.model import converter
+import argparse
+
 
 def convert(currency):
   while(True):
