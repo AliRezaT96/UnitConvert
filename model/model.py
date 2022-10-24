@@ -36,7 +36,7 @@ def converter(text,currency):
         if currency == 'Toman':
             out = RialToToman(num)
     
-    return out, tokens
+    return out , num
 
 
 def TomanToRial(number):
@@ -46,7 +46,7 @@ def TomanToRial(number):
 def RialToToman(number):
     out = ''
     if number[-1] == digits.en_to_fa('0'):
-        out = out[:-2]
+        out = number[0:-1]
     else:
-        out = out[:-2] + ',' + out[-1]
+        out = number[0:-1] + ',' + number[-1]
     return out 
