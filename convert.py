@@ -1,12 +1,13 @@
-from model.model import converter , converterA
+from model.model import converter
 import argparse
 
 
 def convert(currency):
   while(True):
     inp = input('Enter text:')
-    print('A',converterA(inp,currency))
-    print('B',converter(inp,currency))
+    fa, en = converter(inp,currency)
+    print('A',en)
+    print('B',fa)
 
 if __name__=='__main__':
 
