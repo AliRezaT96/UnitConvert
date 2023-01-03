@@ -15,6 +15,10 @@ def converter(text,currency):
         returns the money in desired currency
     """
     numbers = digits.convert_to_fa('0123456789')
+    for txt in text.split():
+        if txt == "میلیون":
+            text = "".join(text.split())
+            break
     text = cleaning(text)
     tokens = text.split()
     out = ''
