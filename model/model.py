@@ -17,6 +17,10 @@ def converter(text,currency):
     numbers = digits.convert_to_fa('0123456789')
     for txt in text.split():
         if txt == "میلیون":
+            if "تومان" in text:
+                text = text.strip("تومان")
+            elif "تومن" in text:
+                text = text.strip("تومن")
             text = "".join(text.split())
             break
     text = cleaning(text)
