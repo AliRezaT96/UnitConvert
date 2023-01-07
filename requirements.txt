@@ -1,1 +1,2 @@
 persian-tools==0.0.10
+persiantools==3.0.1
