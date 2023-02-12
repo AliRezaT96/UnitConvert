@@ -78,14 +78,16 @@ def Size_converter(text):
                 outs += t + ' '
         out["letter"] = outs
 
-    for i in range(len(tokens)):
-        if tokens[i] in letters:
-            out["letter"].append(token)
-        else:
-            if tokens[i][0] in nums:
-                if tokens[i] in ["2","3"] and tokens[i+1] in ["xl","ایکس"]:
-                    out["letter"].append(tokens[i] + tokens[i+1])
-                    i += 1
-                else:
-                    out["number"].append(digits.convert_from_word(tokens[i]))
+    else:
+
+        for i in range(len(tokens)):
+            if tokens[i] in letters:
+                out["letter"].append(token)
+            else:
+                if tokens[i][0] in nums:
+                    if tokens[i] in ["2","3"] and tokens[i+1] in ["xl","ایکس"]:
+                        out["letter"].append(tokens[i] + tokens[i+1])
+                        i += 1
+                    else:
+                        out["number"].append(digits.convert_from_word(tokens[i]))
     return out
