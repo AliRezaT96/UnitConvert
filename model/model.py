@@ -3,10 +3,7 @@ from preprocess.preprocess import cleaning
 from persian_tools import digits
 
 
-Toman_words = ['تومان','تومن','ت','T','t']
-Rial_words = ['R','ریال','r']
-million_words = ['میلیون', 'ملیون']
-thousand = 'هزار'
+
 
 def currency_converter(text,currency):
     """
@@ -16,18 +13,23 @@ def currency_converter(text,currency):
         returns the money in desired currency
     """
     numbers = digits.convert_to_fa('0123456789')
-    
-    text = cleaning(text)
+    Toman_words = ['تومان','تومن','ت','T','t']
+    Rial_words = ['R','ریال','r']
+    million_words = ['میلیون', 'ملیون']
+    thousand = 'هزار'
+
     tokens = text.split()
     out = ''
     
     current = 'Toman' # if there is no indicator in text, we assume its in toman
     for t in Toman_words:
-        if t in text.split():
+        if t in tokens:
             current = 'Toman'
+            break
     for t in Rial_words:
-        if t in text.split():
+        if t in tokens:
             current = 'Rial'
+            break
     
     for txt in tokens:
         # if txt.isdigit():
@@ -64,9 +66,8 @@ def size_converter(text):
     """
     letters = ["l","xl","xxl","فری","بزرگ", "کوچک" ,"لارج","m","2xl","s","بلند","کوتاه","اسمال","مدیوم","ایکس", "کوچیک", "freesize"]
     notallowed = ["سایزبندی","بندی","سایز"]
-    # TODO year and age as letters not numerically separated
-    # TODO 2xl, ... 
-    # TODO "ابعاد"
+
+
     nums = digits.convert_to_fa('0123456789')
     out = {"letter":[],"number":[]}
     text = text.lower()
