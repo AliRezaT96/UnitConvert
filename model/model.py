@@ -56,16 +56,17 @@ def currency_converter(text,currency):
     return int(digits.convert_to_en(out))
 
 
-def Size_converter(text):
+def size_converter(text):
     """
         text: a text that hopefully contains size
 
         returns number and letter size
     """
-    letters = ["l","xl","xxl","فری","بزرگ", "کوچک" ,"لارج","m","2xl","s","بلند","کوتاه","اسمال","مدیوم","ایکس", "کوچیک"]
+    letters = ["l","xl","xxl","فری","بزرگ", "کوچک" ,"لارج","m","2xl","s","بلند","کوتاه","اسمال","مدیوم","ایکس", "کوچیک", "freesize"]
     notallowed = ["سایزبندی","بندی","سایز"]
     # TODO year and age as letters not numerically separated
     # TODO 2xl, ... 
+    # TODO "ابعاد"
     nums = digits.convert_to_fa('0123456789')
     out = {"letter":[],"number":[]}
     text = text.lower()
@@ -76,18 +77,21 @@ def Size_converter(text):
         for t in tokens:
             if t not in notallowed:
                 outs += t + ' '
-        out["letter"] = outs
+        out["letter"] = [outs]
 
     else:
-
-        for i in range(len(tokens)):
+        i = 0
+        while i < len(tokens):
             if tokens[i] in letters:
-                out["letter"].append(token)
+                out["letter"].append(tokens[i])
             else:
                 if tokens[i][0] in nums:
-                    if tokens[i] in ["2","3"] and tokens[i+1] in ["xl","ایکس"]:
+                    if tokens[i] in [digits.convert_to_fa(i) for i in ["2","3","4", "5", "6"]] and tokens[i+1] in ["xl","ایکس", "x"]:
                         out["letter"].append(tokens[i] + tokens[i+1])
                         i += 1
                     else:
                         out["number"].append(digits.convert_from_word(tokens[i]))
+            i += 1
+    out["letter"] = list(set(out["letter"]))
+    out["number"] = list(set(out["number"]))
     return out
