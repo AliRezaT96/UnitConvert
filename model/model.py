@@ -17,6 +17,7 @@ def currency_converter(text,currency):
     Rial_words = ['R','ریال','r']
     million_words = ['میلیون', 'ملیون']
     thousand = 'هزار'
+    three_zero = str(digits.convert_to_fa('000'))
 
     tokens = text.split()
     out = ''
@@ -36,18 +37,18 @@ def currency_converter(text,currency):
         if txt[0] in numbers:
             out += txt
 
-    if out[-3:] != str(digits.convert_to_fa('000')) or thousand in tokens:
+    if out[-3:] != three_zero or thousand in tokens:
         if len(out) < 5:
-            out += str(digits.convert_to_fa('000'))
+            out += three_zero
 
     for num_word in million_words:
         if num_word in text: 
             while(len(out)<7):
-                out += str(digits.convert_to_fa('000'))
+                out += three_zero
 
     if "میلیارد" in text:
         while(len(out)<10):
-            out += str(digits.convert_to_fa('000'))
+            out += three_zero
 
     if current != currency:
         if currency == 'Rial':
